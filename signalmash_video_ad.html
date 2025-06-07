@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signalmash - 30 Second Video Ad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 800px;
+            height: 450px;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .scene.active {
+            opacity: 1;
+        }
+
+        .scene-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .scene-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .scene-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .scene-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .scene-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .scene-6 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        p {
+            font-size: 1.4em;
+            line-height: 1.4;
+            max-width: 600px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .logo {
+            font-size: 4em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            animation: pulse 2s infinite;
+        }
+
+        .cta {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            animation: bounceIn 1s ease-out;
+        }
+
+        .icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            backdrop-filter: blur(10px);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .icon:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .icon:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.8);
+            animation: progress 30s linear;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <div class="floating-elements">
+            <div class="floating-element" style="top: 20%; left: 10%; font-size: 2em;">📱</div>
+            <div class="floating-element" style="top: 60%; right: 15%; font-size: 1.8em;">📞</div>
+            <div class="floating-element" style="bottom: 30%; left: 20%; font-size: 1.5em;">💬</div>
+            <div class="floating-element" style="top: 40%; right: 30%; font-size: 2.2em;">🚀</div>
+        </div>
+
+        <!-- Scene 1: Hook -->
+        <div class="scene scene-1 active">
+            <div>
+                <h1>Still struggling with</h1>
+                <p>Complex telecom systems?<br>Expensive communication tools?<br>Limited messaging capabilities?</p>
+            </div>
+        </div>
+
+        <!-- Scene 2: Problem -->
+        <div class="scene scene-2">
+            <div>
+                <h2>Your business deserves better</h2>
+                <p>Advanced communication shouldn't be reserved for enterprise giants with massive budgets</p>
+            </div>
+        </div>
+
+        <!-- Scene 3: Solution -->
+        <div class="scene scene-3">
+            <div>
+                <h2>Meet Signalmash</h2>
+                <p>The all-in-one communication platform that levels the playing field</p>
+                <div class="icons">
+                    <div class="icon">📞</div>
+                    <div class="icon">💬</div>
+                    <div class="icon">🔧</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 4: Features -->
+        <div class="scene scene-4">
+            <div>
+                <h2>Voice • SMS • APIs</h2>
+                <p>Developer-friendly tools<br>Contact center solutions<br>White-glove support</p>
+            </div>
+        </div>
+
+        <!-- Scene 5: Benefits -->
+        <div class="scene scene-5">
+            <div>
+                <h2>From Self-Serve to Full-Service</h2>
+                <p>We meet you where you are<br>Scale with confidence<br>Innovate without friction</p>
+            </div>
+        </div>
+
+        <!-- Scene 6: CTA -->
+        <div class="scene scene-6">
+            <div>
+                <div class="logo">Signalmash</div>
+                <div class="cta">Ready to Transform?<br>Visit Signalmash.com</div>
+            </div>
+        </div>
+
+        <div class="progress-bar"></div>
+        
+        <div class="controls">
+            <button class="btn" onclick="restartVideo()">↻ Restart</button>
+            <button class="btn" onclick="togglePause()" id="pauseBtn">⏸ Pause</button>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        let isPaused = false;
+        let timeoutId;
+        const scenes = document.querySelectorAll('.scene');
+        const totalScenes = scenes.length;
+        
+        // Scene timing (in seconds) - total 30 seconds
+        const sceneDurations = [4, 4, 5, 5, 6, 6];
+        
+        function showScene(index) {
+            scenes.forEach(scene => scene.classList.remove('active'));
+            if (index < totalScenes) {
+                scenes[index].classList.add('active');
+            }
+        }
+        
+        function nextScene() {
+            if (isPaused) return;
+            
+            currentScene++;
+            if (currentScene < totalScenes) {
+                showScene(currentScene);
+                timeoutId = setTimeout(nextScene, sceneDurations[currentScene] * 1000);
+            } else {
+                // Video completed - restart after 2 seconds
+                setTimeout(restartVideo, 2000);
+            }
+        }
+        
+        function restartVideo() {
+            clearTimeout(timeoutId);
+            currentScene = 0;
+            showScene(0);
+            isPaused = false;
+            document.getElementById('pauseBtn').textContent = '⏸ Pause';
+            timeoutId = setTimeout(nextScene, sceneDurations[0] * 1000);
+        }
+        
+        function togglePause() {
+            isPaused = !isPaused;
+            const btn = document.getElementById('pauseBtn');
+            
+            if (isPaused) {
+                clearTimeout(timeoutId);
+                btn.textContent = '▶ Play';
+            } else {
+                btn.textContent = '⏸ Pause';
+                timeoutId = setTimeout(nextScene, sceneDurations[currentScene] * 1000);
+            }
+        }
+        
+        // Start the video
+        timeoutId = setTimeout(nextScene, sceneDurations[0] * 1000);
+        
+        // Add keyboard controls
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePause();
+            } else if (e.code === 'KeyR') {
+                restartVideo();
+            }
+        });
+    </script>
+</body>
+</html>
